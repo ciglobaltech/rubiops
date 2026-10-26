@@ -1,0 +1,1 @@
+{"version":3,"file":"queryOptimizer.js","sourceRoot":"","sources":["../../src/services/queryOptimizer.ts"],"names":[],"mappings":";AAAA;;;;GAIG;;;AAMH,oCAEC;AANY,QAAA,gBAAgB,GAAG,GAAG,CAAC;AACvB,QAAA,kBAAkB,GAAG,GAAG,CAAC;AACzB,QAAA,mBAAmB,GAAG,GAAG,CAAC;AAEvC,SAAgB,YAAY,CAAC,IAAY;IACvC,OAAO,IAAI,CAAC,IAAI,EAAE,CAAC,OAAO,CAAC,yBAAyB,EAAE,SAAS,CAAC,CAAC;AACnE,CAAC"}

@@ -1,0 +1,24 @@
+export const REQUIRED_PAT_SCOPES = [
+  'Work Items — Read & write',
+  'Code — Read & write (for Auto Code Fix push / PR)',
+  'Project and Team — Read',
+  'Member Entitlement Management — Read (for assignee list)',
+] as const;
+
+export function formatPatScopeHint(action: string): string {
+  return (
+    `Failed to ${action}. Check your Personal Access Token:\n` +
+    REQUIRED_PAT_SCOPES.map((scope) => `• ${scope}`).join('\n')
+  );
+}
+
+export function isSchedulingFieldError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return (
+    lower.includes('completedwork') ||
+    lower.includes('remainingwork') ||
+    lower.includes('scheduling') ||
+    lower.includes('field status not valid') ||
+    lower.includes('cannot find field')
+  );
+}

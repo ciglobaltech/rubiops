@@ -1,0 +1,620 @@
+{
+  "name": "rubiops",
+  "displayName": "RubiOps",
+  "description": "Azure DevOps in VS Code: dashboard, My Tasks, Task Search Bot, standup AI, time logging, and Open in AI Agent (Cursor/Copilot/Claude) from work item details. Publisher: CIGlobalTechnologies.",
+  "version": "1.0.0",
+  "publisher": "CIGlobalTechnologies",
+  "author": {
+    "name": "Balamurugan",
+    "email": "messagetobalamurugan@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://marketplace.visualstudio.com/items?itemName=CIGlobalTechnologies.rubiops",
+  "bugs": {
+    "url": "mailto:messagetobalamurugan@gmail.com"
+  },
+  "qna": "mailto:messagetobalamurugan@gmail.com",
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "keywords": [
+        "rubiops",
+    "azure devops",
+    "ado",
+    "work items",
+    "tasks",
+    "standup",
+    "dashboard",
+        "devops",
+    "sprint",
+    "wiql"
+  ],
+  "activationEvents": [
+    "onView:devopsQuickUpdate.navigation",
+    "onView:devopsQuickUpdate.tasks",
+    "onView:devopsQuickUpdate.refactorPreviewView",
+    "onChatParticipant:rubiops.genie",
+    "onLanguageModelTool:rubiops_genie"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devops-quick-update",
+          "title": "RubiOps",
+          "icon": "resources/icon.svg"
+        }
+      ],
+      "panel": [
+        {
+          "id": "rubiopsRefactorPanel",
+          "title": "Refactor Preview",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "devops-quick-update": [
+        {
+          "type": "webview",
+          "id": "devopsQuickUpdate.navigation",
+          "name": "Menu"
+        },
+        {
+          "id": "devopsQuickUpdate.tasks",
+          "name": "My Tasks"
+        }
+      ],
+      "rubiopsRefactorPanel": [
+        {
+          "type": "webview",
+          "id": "devopsQuickUpdate.refactorPreviewView",
+          "name": "Refactor Preview"
+        }
+      ]
+    },
+    "chatParticipants": [
+      {
+        "id": "rubiops.genie",
+        "name": "genie",
+        "fullName": "RubiOps",
+        "description": "Guide a prompt with RubiOps. Start with /genie and the rest of the text is the prompt.",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "genie",
+            "description": "Take the prompt after /genie and guide it"
+          },
+          {
+            "name": "guide",
+            "description": "Open the RubiOps how to use guide"
+          }
+        ]
+      }
+    ],
+    "languageModelTools": [
+      {
+        "name": "rubiops_genie",
+        "displayName": "RubiOps",
+        "toolReferenceName": "genie",
+        "icon": "$(sparkle)",
+        "tags": [
+          "rubiops",
+          "smartgenie"
+        ],
+        "modelDescription": "Call this when the user message starts with /genie. Pass the text after /genie as prompt. An empty prompt opens the guide. RubiOps shortens the prompt, checks memory, runs a task such as starting the web app, and returns the answer.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "description": "The user text after /genie. Empty when they only asked for the guide."
+            }
+          },
+          "required": [
+            "prompt"
+          ]
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "devopsQuickUpdate.connect",
+        "title": "Connect Azure DevOps",
+        "category": "RubiOps"
+      },
+      {
+        "command": "devopsQuickUpdate.refresh",
+        "title": "Refresh All",
+        "category": "RubiOps",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "devopsQuickUpdate.startWork",
+        "title": "Start Work",
+        "category": "RubiOps",
+        "icon": "$(play)"
+      },
+      {
+        "command": "devopsQuickUpdate.complete",
+        "title": "Complete",
+        "category": "RubiOps",
+        "icon": "$(check)"
+      },
+      {
+        "command": "devopsQuickUpdate.blocked",
+        "title": "Blocked",
+        "category": "RubiOps",
+        "icon": "$(error)"
+      },
+      {
+        "command": "devopsQuickUpdate.changeState",
+        "title": "Change State",
+        "category": "RubiOps",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "devopsQuickUpdate.openDashboard",
+        "title": "Open Dashboard",
+        "category": "RubiOps",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "devopsQuickUpdate.openAgent",
+        "title": "Open Agent",
+        "category": "RubiOps",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "devopsQuickUpdate.openGuide",
+        "title": "How to Use RubiOps",
+        "category": "RubiOps",
+        "icon": "$(book)"
+      },
+      {
+        "command": "devopsQuickUpdate.codeReview",
+        "title": "Code Review",
+        "category": "RubiOps",
+        "icon": "$(search)"
+      },
+      {
+        "command": "devopsQuickUpdate.mergeReview",
+        "title": "Merge Review",
+        "category": "RubiOps",
+        "icon": "$(git-merge)"
+      },
+      {
+        "command": "devopsQuickUpdate.openLastReport",
+        "title": "Open Last Review Report",
+        "category": "RubiOps",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "devopsQuickUpdate.openRefactorPreview",
+        "title": "Refactor Preview (Flutter Standards)",
+        "category": "RubiOps",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "devopsQuickUpdate.openTasks",
+        "title": "Open My Tasks",
+        "category": "RubiOps",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "devopsQuickUpdate.focusTasksTree",
+        "title": "Focus My Tasks Sidebar",
+        "category": "RubiOps",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "devopsQuickUpdate.openQuery",
+        "title": "Open Query & Search",
+        "category": "RubiOps",
+        "icon": "$(search)"
+      },
+      {
+        "command": "devopsQuickUpdate.openTaskBot",
+        "title": "Open Task Search Bot",
+        "category": "RubiOps",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "devopsQuickUpdate.copyAiPrompt",
+        "title": "Copy AI Implementation Prompt",
+        "category": "RubiOps",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "devopsQuickUpdate.openAiAgent",
+        "title": "Open Task in AI Agent",
+        "category": "RubiOps",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "devopsQuickUpdate.openWorkItem",
+        "title": "Open Work Item",
+        "category": "RubiOps"
+      },
+      {
+        "command": "devopsQuickUpdate.copyStandup",
+        "title": "Copy Standup Summary (AI)",
+        "category": "RubiOps",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "devopsQuickUpdate.showTokenBudget",
+        "title": "Show Token Budget",
+        "category": "RubiOps"
+      },
+      {
+        "command": "devopsQuickUpdate.copyCommitMessage",
+        "title": "Copy Commit Message (AB#)",
+        "category": "RubiOps",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "devopsQuickUpdate.openRecommended",
+        "title": "Open AI Recommended Task",
+        "category": "RubiOps",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "devopsQuickUpdate.openBranchWorkItem",
+        "title": "Open Work Item from Git Branch",
+        "category": "RubiOps",
+        "icon": "$(git-branch)"
+      },
+      {
+        "command": "devopsQuickUpdate.connectHub",
+        "title": "Connect RubiOps Hub",
+        "category": "RubiOps",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "devopsQuickUpdate.disconnectHub",
+        "title": "Disconnect RubiOps Hub",
+        "category": "RubiOps",
+        "icon": "$(cloud-offline)"
+      },
+      {
+        "command": "devopsQuickUpdate.runBugWatch",
+        "title": "Run Bug Autopilot",
+        "category": "RubiOps",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "devopsQuickUpdate.verifyBrokenIssue",
+        "title": "Verify Broken Issue (Preprod)",
+        "category": "RubiOps",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "devopsQuickUpdate.buildBugWorkPlan",
+        "title": "Build Bug Work Plan",
+        "category": "RubiOps",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "devopsQuickUpdate.autoCodeFix",
+        "title": "Auto Code Fix",
+        "category": "RubiOps",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "devopsQuickUpdate.setCursorApiKey",
+        "title": "Set Cursor API Key (Auto Code Fix)",
+        "category": "RubiOps",
+        "icon": "$(key)"
+      },
+      {
+        "command": "devopsQuickUpdate.connectProjectCode",
+        "title": "Connect with Project Code",
+        "category": "RubiOps",
+        "icon": "$(organization)"
+      },
+      {
+        "command": "devopsQuickUpdate.todayQueue",
+        "title": "Today Work Queue (What Do I Need To Do?)",
+        "category": "RubiOps",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "devopsQuickUpdate.whyDelayed",
+        "title": "Why Is This Delayed? (Root Cause Investigator)",
+        "category": "RubiOps",
+        "icon": "$(search)"
+      },
+      {
+        "command": "devopsQuickUpdate.generateTests",
+        "title": "Generate Test Cases from Requirement (QA)",
+        "category": "RubiOps",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "devopsQuickUpdate.developerChecklist",
+        "title": "Generate Developer Checklist",
+        "category": "RubiOps",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "devopsQuickUpdate.runTestCommander",
+        "title": "Launch AI Test Commander (Autonomous DAG Orchestrator)",
+        "category": "RubiOps",
+        "icon": "$(hubot)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "devopsQuickUpdate.refresh",
+          "when": "view == devopsQuickUpdate.navigation",
+          "group": "navigation"
+        },
+        {
+          "command": "devopsQuickUpdate.refresh",
+          "when": "view == devopsQuickUpdate.tasks",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "devopsQuickUpdate.openWorkItem",
+          "when": "view == devopsQuickUpdate.tasks && viewItem == workItem",
+          "group": "navigation@1"
+        },
+        {
+          "command": "devopsQuickUpdate.changeState",
+          "when": "view == devopsQuickUpdate.tasks && viewItem == workItem",
+          "group": "1_actions@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "RubiOps",
+      "properties": {
+        "devopsQuickUpdate.organizationUrl": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Azure DevOps organization URL for this workspace folder (e.g. https://dev.azure.com/company)"
+        },
+        "devopsQuickUpdate.projectName": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Default Azure DevOps project name for this workspace folder (e.g. MyProject)"
+        },
+        "devopsQuickUpdate.projectCode": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Unique RubiOps Project Code (e.g. SG-CORE-1001) for this workspace repository"
+        },
+        "devopsQuickUpdate.git.createBranchOnActiveState": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Create a git branch when a work item moves to an active/in-progress state"
+        },
+        "devopsQuickUpdate.git.branchPattern": {
+          "type": "string",
+          "default": "feature/{id}-{title}",
+          "scope": "resource",
+          "description": "Suggested branch name from task. Use {id} and {title} — user can edit before creating"
+        },
+        "devopsQuickUpdate.git.baseBranch": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Deprecated: new branches are always created from the current checked-out branch"
+        },
+        "devopsQuickUpdate.git.branchPrompt": {
+          "type": "string",
+          "enum": [
+            "ask",
+            "always"
+          ],
+          "default": "ask",
+          "scope": "resource",
+          "description": "Deprecated: branch name is always shown in an input box for user to confirm"
+        },
+        "devopsQuickUpdate.git.triggerCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "InProgress"
+          ],
+          "scope": "resource",
+          "description": "Org state categories that trigger branch creation (from Azure DevOps workflow)"
+        },
+        "devopsQuickUpdate.git.triggerStateNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "resource",
+          "description": "Additional state names that trigger branch creation (e.g. Active, In Progress)"
+        },
+        "devopsQuickUpdate.git.matchActiveStateName": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Also trigger when state name contains 'active' (case insensitive)"
+        },
+        "devopsQuickUpdate.timeLog.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Prompt for hours spent when changing work item status"
+        },
+        "devopsQuickUpdate.timeLog.required": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Require entering hours when time logging is enabled (leave empty to skip when false)"
+        },
+        "devopsQuickUpdate.timeLog.onCompleteOnly": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "Only prompt for time log when moving to a completed or closed state"
+        },
+        "devopsQuickUpdate.ai.preferredAgent": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "cursor",
+            "copilot",
+            "vscode-chat",
+            "continue",
+            "cline",
+            "copy"
+          ],
+          "default": "auto",
+          "scope": "resource",
+          "description": "Preferred AI agent when using Open in AI Agent from task details (auto picks installed agent)"
+        },
+        "devopsQuickUpdate.autoFix.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "Allow unattended Auto Code Fix (Cursor SDK, then commit and push)"
+        },
+        "devopsQuickUpdate.autoFix.model": {
+          "type": "string",
+          "default": "composer-2.5",
+          "scope": "window",
+          "description": "Cursor SDK model id for Auto Code Fix"
+        },
+        "devopsQuickUpdate.autoFix.afterBrokenVerify": {
+          "type": "boolean",
+          "default": false,
+          "scope": "window",
+          "description": "After Broken Autopilot finds Broken now, automatically run Auto Code Fix"
+        },
+        "devopsQuickUpdate.hub.enabled": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "Send productivity events to RubiOps Hub API"
+        },
+        "devopsQuickUpdate.hub.apiUrl": {
+          "type": "string",
+          "default": "http://staging.rupos.app/AI/index.php/v1",
+          "scope": "resource",
+          "description": "RubiOps Hub API base URL (e.g. http://staging.rupos.app/AI/index.php/v1)"
+        },
+        "devopsQuickUpdate.hub.idleThresholdMinutes": {
+          "type": "number",
+          "default": 5,
+          "scope": "resource",
+          "description": "Minutes without editor activity before marking coding as idle"
+        },
+        "devopsQuickUpdate.bugWatch.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "Watch Azure DevOps for Bugs assigned to you and auto-tag TodayAssigned"
+        },
+        "devopsQuickUpdate.bugWatch.pollMinutes": {
+          "type": "number",
+          "default": 5,
+          "scope": "window",
+          "description": "How often to poll for newly assigned Bugs"
+        },
+        "devopsQuickUpdate.bugWatch.todayAssignedTag": {
+          "type": "string",
+          "default": "TodayAssigned",
+          "scope": "window",
+          "description": "ADO tag applied to Bugs on your Today plan (not due-date based)"
+        },
+        "devopsQuickUpdate.bugWatch.autoWritePlanToDescription": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "Auto-write RubiOps work plan into the Bug Description"
+        },
+        "devopsQuickUpdate.brokenVerify.tag": {
+          "type": "string",
+          "default": "Broken",
+          "scope": "window",
+          "description": "ADO tag that marks a ticket for broken-issue verification"
+        },
+        "devopsQuickUpdate.brokenVerify.prodUrl": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Fixed preprod/staging URL used by unattended smart test / Playwright (can also be set in .rubiops.json)"
+        },
+        "devopsQuickUpdate.brokenVerify.loginMobile": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Preprod login user/mobile for Broken automated tests (can also be set in .rubiops.json)"
+        },
+        "devopsQuickUpdate.brokenVerify.loginPassword": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Preprod login password for Broken automated tests (can also be set in .rubiops.json)"
+        },
+        "devopsQuickUpdate.brokenVerify.autoOnNewBug": {
+          "type": "boolean",
+          "default": false,
+          "scope": "window",
+          "description": "Deprecated for deep test — deep Broken flow runs only when ticket has Broken tag"
+        },
+        "devopsQuickUpdate.brokenVerify.autoOnBrokenTag": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "When tag Broken is present: read ticket+media, generate test cases, run preprod, screenshot, post ADO comment"
+        },
+        "devopsQuickUpdate.brokenVerify.recheckHours": {
+          "type": "number",
+          "default": 0,
+          "scope": "window",
+          "description": "Hours between re-checks of Broken bugs (0 = only once until verify block exists)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run prepare-readme && npm run compile",
+    "prepare-readme": "node scripts/embed-readme-images.mjs",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "node scripts/fix-vsce-secretlint.mjs && vsce package --allow-missing-repository --no-rewrite-relative-links",
+    "publish": "vsce publish --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.4.2",
+    "eslint": "^9.27.0",
+    "typescript": "^5.8.3"
+  },
+  "extensionDependencies": [
+    "vscode.git"
+  ],
+  "dependencies": {
+    "@cursor/sdk": "^1.0.24",
+    "axios": "^1.9.0",
+    "playwright": "^1.61.1"
+  }
+}

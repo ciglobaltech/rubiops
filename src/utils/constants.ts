@@ -1,0 +1,48 @@
+export const EXTENSION_ID = 'devopsQuickUpdate';
+
+export const SECRET_KEYS = {
+  PAT: 'devopsQuickUpdate.pat',
+  CURSOR_API_KEY: 'devopsQuickUpdate.cursorApiKey',
+} as const;
+
+export const COMMANDS = {
+  CONNECT: `${EXTENSION_ID}.connect`,
+  REFRESH: `${EXTENSION_ID}.refresh`,
+  START_WORK: `${EXTENSION_ID}.startWork`,
+  COMPLETE: `${EXTENSION_ID}.complete`,
+  BLOCKED: `${EXTENSION_ID}.blocked`,
+  CHANGE_STATE: `${EXTENSION_ID}.changeState`,
+  OPEN_DASHBOARD: `${EXTENSION_ID}.openDashboard`,
+  OPEN_AGENT: `${EXTENSION_ID}.openAgent`,
+  OPEN_GUIDE: `${EXTENSION_ID}.openGuide`,
+  CODE_REVIEW: `${EXTENSION_ID}.codeReview`,
+  MERGE_REVIEW: `${EXTENSION_ID}.mergeReview`,
+  OPEN_LAST_REPORT: `${EXTENSION_ID}.openLastReport`,
+  OPEN_REFACTOR_PREVIEW: `${EXTENSION_ID}.openRefactorPreview`,
+  OPEN_TASKS: `${EXTENSION_ID}.openTasks`,
+  FOCUS_TASKS_TREE: `${EXTENSION_ID}.focusTasksTree`,
+  OPEN_QUERY: `${EXTENSION_ID}.openQuery`,
+  OPEN_TASK_BOT: `${EXTENSION_ID}.openTaskBot`,
+  COPY_AI_PROMPT: `${EXTENSION_ID}.copyAiPrompt`,
+  OPEN_AI_AGENT: `${EXTENSION_ID}.openAiAgent`,
+  OPEN_WORK_ITEM: `${EXTENSION_ID}.openWorkItem`,
+  COPY_STANDUP: `${EXTENSION_ID}.copyStandup`,
+  SHOW_TOKEN_BUDGET: `${EXTENSION_ID}.showTokenBudget`,
+  COPY_COMMIT_MESSAGE: `${EXTENSION_ID}.copyCommitMessage`,
+  OPEN_RECOMMENDED: `${EXTENSION_ID}.openRecommended`,
+  OPEN_BRANCH_WORK_ITEM: `${EXTENSION_ID}.openBranchWorkItem`,
+  CONNECT_HUB: `${EXTENSION_ID}.connectHub`,
+  DISCONNECT_HUB: `${EXTENSION_ID}.disconnectHub`,
+  RUN_BUG_WATCH: `${EXTENSION_ID}.runBugWatch`,
+  VERIFY_BROKEN_ISSUE: `${EXTENSION_ID}.verifyBrokenIssue`,
+  BUILD_BUG_WORK_PLAN: `${EXTENSION_ID}.buildBugWorkPlan`,
+  AUTO_CODE_FIX: `${EXTENSION_ID}.autoCodeFix`,
+  SET_CURSOR_API_KEY: `${EXTENSION_ID}.setCursorApiKey`,
+  CONNECT_PROJECT_CODE: `${EXTENSION_ID}.connectProjectCode`,
+  WHY_DELAYED: `${EXTENSION_ID}.whyDelayed`,
+  TODAY_QUEUE: `${EXTENSION_ID}.todayQueue`,
+  GENERATE_TESTS: `${EXTENSION_ID}.generateTests`,
+  DEVELOPER_CHECKLIST: `${EXTENSION_ID}.developerChecklist`,
+  RUN_TEST_COMMANDER: `${EXTENSION_ID}.runTestCommander`,
+} as const;
+
